@@ -1,0 +1,49 @@
+<div class="login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="(sumbitLogin)">
+    <div class="form-control">
+      <input
+        formControlName="email"
+        class="form-control__item"
+        type="email"
+        name="username"
+        id="username"
+        placeholder="Login"
+      />
+      <p
+        *ngIf="
+          this.loginForm.get('email')?.invalid &&
+          this.loginForm.get('email')?.touched
+        "
+        class="text-danger"
+      >
+        Email is required
+      </p>
+      <!-- maxlength="30"
+        minlength="4" -->
+      <!-- <label class="form-label" for="username">Login</label> -->
+    </div>
+    <div class="form-control">
+      <input
+        formControlName="password"
+        class="form-control__item"
+        type="password"
+        name="Пароль"
+        minlength="6"
+        id="password"
+        placeholder="Password"
+      />
+      <p
+        *ngIf="
+          this.loginForm.get('password')?.invalid &&
+          this.loginForm.get('password')?.touched
+        "
+        class="text-danger"
+      >
+        Password is required (min. length = 8)
+      </p>
+      <button (click)="sumbitLogin()" [disabled]="loginForm.invalid" class="btn" type="submit">Log In</button>
+    </div>
+    <br />
+    <a class="link-acc">How to create account?</a>
+  </form>
+</div>

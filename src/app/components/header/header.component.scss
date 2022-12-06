@@ -1,0 +1,19 @@
+.header {
+  background: #2c2c2c;
+  border-bottom: 1px solid #b4b4c0;
+  box-shadow: 0px 4px 4px rgba(62, 5, 4, 0.25);
+  width: 100%;
+  padding: 25px 40px;
+}
+
+.nav-bar__right {
+    float: right;
+}
+
+.img-column {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 250px;
+    top: 20px;
+}
