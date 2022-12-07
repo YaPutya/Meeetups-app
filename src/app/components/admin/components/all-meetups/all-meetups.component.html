@@ -1,0 +1,18 @@
+<div *ngFor="let meetup of allMeetups | async">
+    <div class="panel">
+        <div class="header">
+            <div class="name">{{meetup.name}}</div>
+            <div class="description">{{meetup.description}}</div>
+                <div class="location">{{meetup.location}}</div>
+                <div class="target_audience">{{meetup.target_audience}}</div>
+                <div class="need_to_know">{{meetup.need_to_know}}</div>
+                <div class="will_happen">{{meetup.will_happen}}</div>
+                <div class="reason_to_come">{{meetup.reason_to_come}}</div>
+                <div class="time">{{meetup.time}}</div>
+                <div class="duration">{{meetup.duration}}</div>
+                <div class="createdBy">{{meetup.createdBy}}</div>
+
+
+        </div>
+    </div>
+</div>

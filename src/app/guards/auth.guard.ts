@@ -13,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanDeactivate<unknown> {
+export class AuthGuard implements CanActivate {        // CanDeactivate<unknown>
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -24,26 +24,27 @@ export class AuthGuard implements CanActivate, CanDeactivate<unknown> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.authService.isLoggedIn()) {
+    if (this.authService.user) {
+      return true;
+    } else {
       this.router.navigate(['login']);
       return false;
     }
-    return true;
   }
-  canDeactivate(
-    component: unknown,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (confirm('Are you sure?')) {
-      localStorage.removeItem('token');
-      return true;
-    }
-    return false;
-  }
+  // canDeactivate(
+  //   component: unknown,
+  //   currentRoute: ActivatedRouteSnapshot,
+  //   currentState: RouterStateSnapshot,
+  //   nextState?: RouterStateSnapshot
+  // ):
+  //   | Observable<boolean | UrlTree>
+  //   | Promise<boolean | UrlTree>
+  //   | boolean
+  //   | UrlTree {
+  //   if (confirm('Are you sure?')) {
+  //     localStorage.removeItem('token');
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }

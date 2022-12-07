@@ -20,10 +20,15 @@ export class LoginComponent implements OnInit {
 
   sumbitLogin() {
     // console.log(this.loginForm.value)
-    this.authService.login(this.loginForm.value).subscribe({
-      next: () => this.router.navigate(['admin']),
-      error: (err) => alert(err.message),
-    });
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password ).subscribe(() => {
+      this.router.navigate(['allMeetups'])
+    }, err => alert(err.message));
+    
+    // subscribe(() => {
+    //   this.router.navigate(['admin']),
+    // }, 
+    // err => alert(err.message)
+    // );
   }
 
   ngOnInit(): void {
@@ -31,12 +36,12 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
+        Validators.min(8),
       ]),
     });
 
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['admin'])
-    }
+    // if (this.authService.isLoggedIn()) {
+    //   this.router.navigate(['admin'])
+    // }
   }
 }

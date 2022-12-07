@@ -1,5 +1,7 @@
 <div class="main">
+  <app-header-admin *ngIf="authService.currentUser"> </app-header-admin>
+  <app-header *ngIf="!authService.currentUser"></app-header>  
   <router-outlet>
-    <app-header> </app-header>
   </router-outlet>
+
 </div>
