@@ -63,6 +63,7 @@ export class AuthService {
     const token = localStorage.getItem('del_meetups_auth_token');
     if (token) {
       const user: User = this.parseJwt(token);
+      console.log(user)
       return user;
     } else return null;
   }

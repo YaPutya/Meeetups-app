@@ -1,28 +1,67 @@
 <div class="header">
   <nav class="nav-bar">
-    <a routerLink="about"><img src="../../assets/images/MeetUps.png" alt="logo" /> </a>
-    <div class="img-column">
+    <div class="nav-bar__block">
+      <a routerLink="about"
+        ><img src="../../assets/images/MeetUps.png" alt="logo" style="margin-right: 31px;" />
+      </a>
+
+      <div class="nav-bar__block-column">
         <img
-            src="../../assets/images/philosophy.png"
-            alt="logo"
-            width="192px"
-            height="30px"
-          />
-          <img
-            src="../../assets/images/league.png"
-            alt="logo"
-            width="95.56px"
-            height="30px"
-          />
+          src="../../assets/images/philosophy.png"
+          alt="logo"
+          width="192px"
+          height="30px"
+        />
+        <img
+          src="../../assets/images/league.png"
+          alt="logo"
+          width="95.56px"
+          height="30px"
+        />
       </div>
-    <a routerLink="login"
+    </div>
+
+    <a routerLink="login" *ngIf="!authService.currentUser"
       ><img
-        class="nav-bar__right"
         src="../../assets/images/login.png"
         alt="logo"
         width="48px"
         height="48px"
       />
     </a>
+    <!-- После входа будет отображаться -->
+
+    <ul class="nav-bar__meetups" *ngIf="authService.currentUser">
+      <!-- <li *ngFor="let item of list" (click)="onSelectItem(item)" [class.active]="item == activeItem">{{ item }}</li> -->
+      <li>
+        <a class="nav-bar__meetups-a" routerLink="./allMeetups" routerLinkActive="router-active">Все митапы</a>
+      </li>
+      <li>
+        <a class="nav-bar__meetups-a" routerLink="./myMeetups" routerLinkActive="router-active">Мои митапы</a>
+      </li>
+      <li>
+        <a class="nav-bar__meetups-a" routerLink="./users" routerLinkActive="router-active">Пользователи</a>
+      </li>
+    </ul>
+
+    <div class="nav-bar__right-block">
+    <a (click)="logout()" *ngIf="authService.currentUser" style="cursor: pointer;"
+      ><img
+        src="../../../../../assets/images/logout.png"
+        alt="logo"
+        width="48px"
+        height="48px"
+      />
+    </a>
+    <a *ngIf="authService.currentUser" style="margin-left: 23px;"
+      ><img
+        src="../../../../../assets/images/engine.png"
+        alt="logo"
+        width="48px"
+        height="48px"
+      />
+    </a>
+  </div>
+
   </nav>
 </div>

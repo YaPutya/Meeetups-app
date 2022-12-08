@@ -1,18 +1,37 @@
-<div *ngFor="let meetup of allMeetups | async">
-    <div class="panel">
-        <div class="header">
-            <div class="name">{{meetup.name}}</div>
-            <div class="description">{{meetup.description}}</div>
-                <div class="location">{{meetup.location}}</div>
-                <div class="target_audience">{{meetup.target_audience}}</div>
-                <div class="need_to_know">{{meetup.need_to_know}}</div>
-                <div class="will_happen">{{meetup.will_happen}}</div>
-                <div class="reason_to_come">{{meetup.reason_to_come}}</div>
-                <div class="time">{{meetup.time}}</div>
-                <div class="duration">{{meetup.duration}}</div>
-                <div class="createdBy">{{meetup.createdBy}}</div>
-
-
-        </div>
+<div class="card" *ngFor="let meetup of allMeetups | async">
+  <div class="card-panel">
+    <div class="header">
+      <p class="header__name">{{ meetup.name }}</p>
+      <div class="header__block-column">
+        <p class="header__time">{{ meetup.time }}</p>
+        <p class="header__location">{{ meetup.location }}</p>
+      </div>
     </div>
+
+    <div class="wrapper">
+      <p class="wrapper__description">{{ meetup.description }}</p>
+      <h4 class="styled-h4">Целевая аудитория</h4>
+      <p class="wrapper__target_audience">{{ meetup.target_audience }}</p>
+      <h4 class="styled-h4">Что нужно знать?</h4>
+      <p class="wrapper__need_to_know">{{ meetup.need_to_know }}</p>
+      <h4 class="styled-h4">Что произойдет?</h4>
+      <p class="wrapper__will_happen">{{ meetup.will_happen }}</p>
+      <h4 class="styled-h4">Причина прийти?</h4>
+      <p class="wrapper__reason_to_come">{{ meetup.reason_to_come }}</p>
+      <h4 class="styled-h4">Продолжительность?</h4>
+      <p class="wrapper__duration">{{ meetup.duration }}</p>
+      <h4 class="styled-h4">Создан?</h4>
+      <p class="wrapper__createdBy">{{ meetup.createdBy }}</p>
+      <div class="wrapper__buttons-block">
+        <img
+          class="wrapper__btn-subscribe"
+          src="../../../../../assets/images/Button-subscribe.png"
+        />
+        <img
+          class="wrapper__btn-more"
+          src="../../../../../assets/images/button-more.png"
+        />
+      </div>
+    </div>
+  </div>
 </div>

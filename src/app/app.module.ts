@@ -9,7 +9,6 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptors';
-import { HeaderAdminComponent } from './components/admin/components/header-admin/header-admin.component';
 import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { HeaderComponent } from './components/header/header.component';
     AppComponent,
     ProjectDescriptionComponent,
     LoginComponent,
-    HeaderAdminComponent,
     HeaderComponent,
   ],
   imports: [
