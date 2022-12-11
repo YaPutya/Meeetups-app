@@ -5,14 +5,19 @@ import { AuthService, Role } from 'src/app/services/auth.service';
 import { Meetups } from '../../meetups';
 import { AdminService } from '../../services/admin.service';
 
-
 @Component({
   selector: 'app-all-meetups',
   templateUrl: './all-meetups.component.html',
-  styleUrls: ['./all-meetups.component.scss']
+  styleUrls: ['./all-meetups.component.scss'],
 })
-export class AllMeetupsComponent implements OnInit{
-  allMeetups: Observable<Meetups[]> = this.adminService.getAllMeetups()
+export class AllMeetupsComponent implements OnInit {
+  condition: boolean = true;
+
+  toggle() {
+    this.condition = !this.condition;
+  }
+
+  allMeetups: Observable<Meetups[]> = this.adminService.getAllMeetups();
   // allMeetups: Observable<Meetups[]> = of([ {
   //   id: 3,
   //   name: 'string',
@@ -26,15 +31,17 @@ export class AllMeetupsComponent implements OnInit{
   // }
   // ])
 
-  constructor(private adminService: AdminService, 
+  constructor(
+    private adminService: AdminService,
     private authService: AuthService,
-    private http: HttpClient) {}
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     // this.http
     //   .post<Role>(`${this.authService.baseUrl}/login`, {}).subscribe(res => {
     //     this.authService.role = res;
     //   });
-    // this.allMeetups = 
+    // this.allMeetups =
   }
 }

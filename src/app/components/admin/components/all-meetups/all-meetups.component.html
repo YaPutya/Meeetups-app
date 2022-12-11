@@ -7,9 +7,9 @@
         <p class="header__location">{{ meetup.location }}</p>
       </div>
     </div>
+    <p class="wrapper__description">{{ meetup.description }}</p>
 
-    <div class="wrapper">
-      <p class="wrapper__description">{{ meetup.description }}</p>
+    <div *ngIf="!condition" class="wrapper">
       <h4 class="styled-h4">Целевая аудитория</h4>
       <p class="wrapper__target_audience">{{ meetup.target_audience }}</p>
       <h4 class="styled-h4">Что нужно знать?</h4>
@@ -22,16 +22,40 @@
       <p class="wrapper__duration">{{ meetup.duration }}</p>
       <h4 class="styled-h4">Создан?</h4>
       <p class="wrapper__createdBy">{{ meetup.createdBy }}</p>
-      <div class="wrapper__buttons-block">
+    </div>
+
+    <div *ngIf="!condition" class="wrapper__buttons-block">
+      <button class="wrapper__butons-block-styled">
         <img
           class="wrapper__btn-subscribe"
           src="../../../../../assets/images/Button-subscribe.png"
         />
+      </button>
+      <button (click)="toggle()" class="wrapper__butons-block-styled">
+        <img
+          class="wrapper__btn-more"
+          src="../../../../../assets/images/button-hide.png"
+        />
+      </button>
+    </div>
+
+    <div class="wrapper__buttons-block" *ngIf="condition" #thenBlock>
+      <button class="wrapper__butons-block-styled">
+        <img
+          class="wrapper__btn-subscribe"
+          src="../../../../../assets/images/Button-subscribe.png"
+        />
+      </button>
+      <button (click)="toggle()" class="wrapper__butons-block-styled">
         <img
           class="wrapper__btn-more"
           src="../../../../../assets/images/button-more.png"
         />
-      </div>
+      </button>
     </div>
   </div>
 </div>
+
+<footer class="footer">
+  <button class="footer__button-btn"><img class="footer__button" src="../../../../../assets/images/create-meetup.png"/> </button>
+</footer>
