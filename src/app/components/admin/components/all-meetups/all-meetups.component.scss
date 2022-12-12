@@ -67,7 +67,7 @@
   justify-content: end;
 }
 
-.wrapper__butons-block-styled {
+.wrapper__buttons-block-styled {
   border: none;
   outline: none;
   background-color: transparent;
@@ -75,7 +75,7 @@
   cursor: pointer;
 }
 
-.wrapper__butons-block-styled:first-child {
+.wrapper__buttons-block-styled:first-child {
   margin-right: 10px;
 }
 
@@ -83,6 +83,7 @@
   height: 80px;
   // margin-top: -80px;
   padding: 18px 40px 15px 40px;
+  margin-top: 12px;
 
   background: #2c2c2c;
   border-top: 1px solid #b4b4c0;

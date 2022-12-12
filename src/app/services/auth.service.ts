@@ -13,16 +13,11 @@ export interface Role {
 export class AuthService {
   baseUrl: string = `${environment.backendOrigin}`;
 
+  isAdmin: boolean | undefined;
+
   // role: Observable<Role> = of({names: []});
 
-  // isAdmin: boolean | undefined;
-
-  currentUser: string = '';
-
   constructor(private http: HttpClient, private routes: Router) {}
-
-  getRole() {}
-
 
   login(email: string, password: string) {
     return this.http
@@ -30,7 +25,6 @@ export class AuthService {
       .pipe(
         map((res) => {
           if (res.token) {
-            this.currentUser = email;
             localStorage.setItem('del_meetups_auth_token', res.token);
           }
           return null;
@@ -40,7 +34,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('del_meetups_auth_token');
-    this.currentUser = '';
     this.routes.navigate(['login']);
   }
 
@@ -63,7 +56,8 @@ export class AuthService {
     const token = localStorage.getItem('del_meetups_auth_token');
     if (token) {
       const user: User = this.parseJwt(token);
-      console.log(user)
+      this.isAdmin = user?.roles?.some((role) => role.name === 'ADMIN');
+      // console.log(user)
       return user;
     } else return null;
   }

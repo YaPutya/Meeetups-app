@@ -13,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {        // CanDeactivate<unknown>
+export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -24,27 +24,16 @@ export class AuthGuard implements CanActivate {        // CanDeactivate<unknown>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.user) {
+    console.log(route, state, this.authService.user);
+    if (this.authService.user?.roles?.some((role) => role.name === 'ADMIN')) {
       return true;
+    } else if (this.authService.user && state.url !== '/users') {
+      return true;
+    } else if (this.authService.user && state.url === '/users') {
+      return false;
     } else {
       this.router.navigate(['login']);
       return false;
     }
   }
-  // canDeactivate(
-  //   component: unknown,
-  //   currentRoute: ActivatedRouteSnapshot,
-  //   currentState: RouterStateSnapshot,
-  //   nextState?: RouterStateSnapshot
-  // ):
-  //   | Observable<boolean | UrlTree>
-  //   | Promise<boolean | UrlTree>
-  //   | boolean
-  //   | UrlTree {
-  //   if (confirm('Are you sure?')) {
-  //     localStorage.removeItem('token');
-  //     return true;
-  //   }
-  //   return false;
-  // }
 }

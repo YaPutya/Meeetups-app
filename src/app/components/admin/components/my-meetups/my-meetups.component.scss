@@ -1,10 +1,10 @@
 .wrapper-myMeetups {
   padding-bottom: 100px;
+  padding-top: 140px;
 }
 
-.footer {
+.footer-myMeetups {
   height: 80px;
-  margin-top: -80px;
   padding: 18px 40px 15px 40px;
 
   background: #2c2c2c;
@@ -12,7 +12,7 @@
   box-shadow: 0px 4px 4px rgb(62 5 4 / 25%);
   width: 100%;
 
-  position: sticky;
+  position: fixed;
   bottom: 0px;
 }
 
