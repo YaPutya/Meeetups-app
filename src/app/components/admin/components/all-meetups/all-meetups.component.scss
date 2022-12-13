@@ -6,6 +6,10 @@
   padding-top: 140px;
 }
 
+.card:nth-last-child(2) {
+  padding-bottom: 100px;
+}
+
 .card-panel {
   background: #2c2c2c;
   border: 0.3px solid #b4b4c0;
@@ -63,8 +67,26 @@
 
 .wrapper__buttons-block {
   display: flex;
-  align-items: flex-end;
-  justify-content: end;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper__buttons-block-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+
+  color: #e9e9e9;
+}
+
+.wrapper__buttons-block-start-creator {
+  padding-right: 20px;
 }
 
 .wrapper__buttons-block-styled {
@@ -83,14 +105,14 @@
   height: 80px;
   // margin-top: -80px;
   padding: 18px 40px 15px 40px;
-  margin-top: 12px;
+
 
   background: #2c2c2c;
   border-top: 1px solid #b4b4c0;
   box-shadow: 0px 4px 4px rgb(62 5 4 / 25%);
   width: 100%;
 
-  // position: sticky;
+  // position: fixed;
   // bottom: 0px;
 }
 

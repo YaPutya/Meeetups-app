@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyMeetupsComponent } from './components/my-meetups/my-meetups.component';
@@ -12,6 +13,6 @@ import { AllMeetupsComponent } from './components/all-meetups/all-meetups.compon
     UsersComponent,
     AllMeetupsComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule],
+  imports: [CommonModule, AdminRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class AdminModule {}
