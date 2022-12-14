@@ -1,15 +1,95 @@
-.formik {
-  margin-top: 150px;
-  padding: 0 185px 30px 405px;
+.card {
+  padding: 25px 40px 10px 40px;
+}
+
+.card:first-child {
+  padding-top: 140px;
+}
+
+.card:nth-last-child(2) {
+  padding-bottom: 100px;
+}
+
+.card-panel {
+  background: #2c2c2c;
+  border: 0.3px solid #b4b4c0;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.header__block-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__name,
+.header__time {
+  font-family: "Nerko One";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  color: #e9e9e9;
+}
+
+.styled-h4 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+
+  color: #e9e9e9;
+}
+
+.wrapper {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+
+  color: #b4b4c0;
+}
+
+.wrapper__description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+
+  color: #b4b4c0;
+}
+
+.wrapper__buttons-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper__buttons-block-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 25px;
+
   color: #e9e9e9;
 }
 
-.formik-btn__btn {
+.wrapper__buttons-block-start-creator {
+  padding-right: 20px;
+}
+
+.wrapper__buttons-block-styled {
   border: none;
   outline: none;
   background-color: transparent;
@@ -17,131 +97,31 @@
   cursor: pointer;
 }
 
-.formik__styled-h2 {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+.wrapper__buttons-block-styled:first-child {
+  margin-right: 10px;
 }
 
-input.ng-touched.ng-invalid {
-  border-color: red;
-}
+.footer {
+  height: 80px;
+  margin-top: -80px;
+  padding: 18px 40px 15px 40px;
 
-input[type="text"] {
+
   background: #2c2c2c;
-  border: 3px solid #4c3f78;
-  border-radius: 5px;
-  height: 50px;
+  border-top: 1px solid #b4b4c0;
+  box-shadow: 0px 4px 4px rgb(62 5 4 / 25%);
+  width: 100%;
+
+  position: fixed;
+  bottom: 0px;
 }
 
-.formik__label-name {
-  padding-right: 30px;
-}
-
-input[type="text"]#name {
-  width: 35%;
-}
-
-.formik__label-date {
-  padding-right: 70px;
-}
-
-input[type="text"]#date {
-  margin-right: 150px;
-  width: 20%;
-}
-
-.formik__label-time {
-  padding-right: 70px;
-}
-
-input[type="text"]#time {
-  width: 20%;
-}
-
-.formik__label-location {
-  padding-right: 60px;
-}
-
-input[type="text"]#location {
-  width: 35%;
-}
-
-.formik__label-short-description {
-  padding-right: 35px;
-}
-
-input[type="text"]#short_description {
-  width: 64%;
-  height: 105px;
-}
-
-.formik-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.formik__block-short {
-  width: 50px;
-  height: 80px;
-  margin-right: 67px;
-}
-
-.formik__block-long {
-  width: 50px;
-  height: 80px;
-  margin-right: 67px;
-}
-
-input[type="text"]#long_description {
-  width: 64%;
-  height: 210px;
-}
-
-.formik__block-target {
-  width: 50px;
-  height: 80px;
-  margin-right: 67px;
-}
-
-input[type="text"]#target_audience {
-  width: 64%;
-  height: 105px;
-}
-
-.formik__block-need {
-  width: 80px;
-  height: 80px;
-  margin-right: 38px;
-}
-
-input[type="text"]#need_to_know {
-  width: 64%;
-  height: 105px;
-}
-
-.formik__block-happen {
-  padding-right: 28px;
-}
-
-input[type="text"]#will_happen {
-  height: 180px;
-  width: 64%;
-}
-
-.formik__block-reason {
-  width: 80px;
-  height: 80px;
-  margin-right: 38px;
-}
-
-input[type="text"]#reason_to_come {
-  height: 105px;
-  width: 64%;
-}
-
-.formik-btn {
+.footer__button-btn {
   float: right;
-  padding-bottom: 35px;
+  width: 165px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background: transparent;
+  cursor: pointer;
 }

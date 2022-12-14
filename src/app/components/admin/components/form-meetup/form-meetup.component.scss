@@ -1,0 +1,149 @@
+.formik {
+    margin-top: 150px;
+    padding: 0 185px 180px 405px;
+  
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #e9e9e9;
+  }
+  
+  .formik-btn__btn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .formik__styled-h2 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  input.ng-touched.ng-invalid {
+    border-color: red;
+  }
+  
+  input[type="text"] {
+    background: #2c2c2c;
+    border: 3px solid #4c3f78;
+    border-radius: 5px;
+    height: 50px;
+    padding: 7px;
+    color: white;
+  }
+  
+  .formik__label-name {
+    padding-right: 30px;
+  }
+  
+  input[type="text"]#name {
+    width: 35%;
+  }
+  
+  .formik__label-date {
+    padding-right: 70px;
+  }
+  
+  input[type="text"]#date {
+    margin-right: 150px;
+    width: 20%;
+  }
+  
+  .formik__label-time {
+    padding-right: 70px;
+  }
+  
+  input[type="text"]#time {
+    width: 20%;
+  }
+  
+  .formik__label-location {
+    padding-right: 60px;
+  }
+  
+  input[type="text"]#location {
+    width: 35%;
+  }
+  
+  .formik__label-short-description {
+    padding-right: 35px;
+  }
+  
+  input[type="text"]#short_description {
+    width: 64%;
+    height: 105px;
+  }
+  
+  .formik-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .formik__block-short {
+    width: 50px;
+    height: 80px;
+    margin-right: 67px;
+  }
+  
+  .formik__block-long {
+    width: 50px;
+    height: 80px;
+    margin-right: 67px;
+  }
+  
+  input[type="text"]#long_description {
+    width: 64%;
+    height: 210px;
+  }
+  
+  .formik__block-target {
+    width: 50px;
+    height: 80px;
+    margin-right: 67px;
+  }
+  
+  input[type="text"]#target_audience {
+    width: 64%;
+    height: 105px;
+  }
+  
+  .formik__block-need {
+    width: 80px;
+    height: 80px;
+    margin-right: 38px;
+  }
+  
+  input[type="text"]#need_to_know {
+    width: 64%;
+    height: 105px;
+  }
+  
+  .formik__block-happen {
+    padding-right: 28px;
+  }
+  
+  input[type="text"]#will_happen {
+    height: 180px;
+    width: 64%;
+  }
+  
+  .formik__block-reason {
+    width: 80px;
+    height: 80px;
+    margin-right: 38px;
+  }
+  
+  input[type="text"]#reason_to_come {
+    height: 105px;
+    width: 64%;
+  }
+  
+  .formik-btn {
+    float: right;
+    padding-bottom: 35px;
+  }

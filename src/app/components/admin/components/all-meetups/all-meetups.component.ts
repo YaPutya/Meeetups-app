@@ -15,18 +15,7 @@ export class AllMeetupsComponent implements OnInit {
   
   conditions: boolean[] = [];
 
-  myMeetupsReactiveForm!: FormGroup<{
-    name: FormControl<string | null>;
-    date: FormControl<string | null>;
-    time: FormControl<string | null>;
-    location: FormControl<string | null>;
-    short_description: FormControl<string | null>;
-    long_description: FormControl<string | null>;
-    target_audience: FormControl<string | null>;
-    need_to_know: FormControl<string | null>;
-    will_happen: FormControl<string | null>;
-    reason_to_come: FormControl<string | null>;
-  }>;
+  showForm: boolean = false;
 
   updateMeetup: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
@@ -55,28 +44,16 @@ export class AllMeetupsComponent implements OnInit {
     map((meetups) => meetups.sort((a,b) => a.id - b.id) )
   );
 
+  showHideForm() {
+    this.showForm = !this.showForm;
+  }
+
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
     private http: HttpClient, 
-    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-  }
-
-  initForm() {
-    this.myMeetupsReactiveForm = this.fb.group({
-      name: [''],
-      date: ['23.03.22'],
-      time: ['16:06'],
-      location: [''],
-      short_description: [''],
-      long_description: [''],
-      target_audience: [''],
-      need_to_know: [''],
-      will_happen: [''],
-      reason_to_come: [''],
-    });
   }
 }

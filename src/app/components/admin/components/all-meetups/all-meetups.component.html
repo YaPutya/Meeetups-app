@@ -1,5 +1,5 @@
 <div class="card" *ngFor="let meetup of allMeetups | async; index as i">
-  <div class="card-panel">
+  <div *ngIf="!showForm" class="card-panel">
     <div class="header">
       <p class="header__name">{{ meetup.name }}</p>
       <div class="header__block-column">
@@ -100,8 +100,10 @@
   </div>
 </div>
 
-<footer class="footer">
-  <button class="footer__button-btn">
+<app-form-meetup *ngIf="showForm"></app-form-meetup>
+
+<footer *ngIf="!showForm" class="footer">
+  <button (click)="showHideForm()" class="footer__button-btn">
     <img
       class="footer__button"
       src="../../../../../assets/images/create-meetup.png"

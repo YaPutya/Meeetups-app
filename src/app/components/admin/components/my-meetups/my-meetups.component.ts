@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { BehaviorSubject, filter, Observable, switchMap, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/user';
@@ -15,18 +20,7 @@ import { AdminService } from '../../services/admin.service';
 export class MyMeetupsComponent implements OnInit {
   conditions: boolean[] = [];
 
-  myMeetupsReactiveForm!: FormGroup<{
-    name: FormControl<string | null>;
-    date: FormControl<string | null>;
-    time: FormControl<string | null>;
-    location: FormControl<string | null>;
-    short_description: FormControl<string | null>;
-    long_description: FormControl<string | null>;
-    target_audience: FormControl<string | null>;
-    need_to_know: FormControl<string | null>;
-    will_happen: FormControl<string | null>;
-    reason_to_come: FormControl<string | null>;
-  }>;
+  showForm: boolean = false;
 
   constructor(
     private adminService: AdminService,
@@ -68,36 +62,19 @@ export class MyMeetupsComponent implements OnInit {
       .subscribe(() => this.updateMeetup.next(true));
   }
 
-  ngOnInit(): void {
-    this.initForm();
-    this.myMeetupsReactiveForm.valueChanges.subscribe((value) =>
-	console.log(`${value.name}: ${value.date}`)
-);
+  deleteMeetup(meetup: Meetups) {
+    this.adminService
+      .deleteMeetups(meetup)
+      .subscribe(() => this.updateMeetup.next(true));
   }
 
-  initForm() {
-    this.myMeetupsReactiveForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      date: [''],
-      time: [''],
-      location: [''],
-      short_description: [''],
-      long_description: [''],
-      target_audience: [''],
-      need_to_know: [''],
-      will_happen: [''],
-      reason_to_come: [''],
-    });
+  showHideForm() {
+    this.showForm = !this.showForm;
   }
 
-  onSubmit() {
-    if (this.myMeetupsReactiveForm.invalid) {
-      return;
-    }
-    console.log(this.myMeetupsReactiveForm.value);
-   }
+  ngOnInit(): void {}
+
+  //  remove(meetup: Meetups) {
+  //   this.adminService.removeMeetupsById(meetup.id);
+  //  }
 }
-
-
-
-

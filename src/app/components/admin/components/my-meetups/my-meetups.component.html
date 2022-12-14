@@ -1,109 +1,114 @@
-<form class="formik" [formGroup]="myMeetupsReactiveForm" (submit)="onSubmit()">
-  <h2 class="formik__styled-h2">Создание митапа</h2>
-  <br />
-  <br />
-
-  <label class="formik__label-name" for="name">Название:</label>
-  <input type="text" id="name" placeholder="Митап 1"  formControlName="name" />
-  <br /><br />
-
-  <label class="formik__label-date" for="date">Дата:</label>
-  <input
-    type="text"
-    placeholder="23.03.2015"
-    id="date"
-    formControlName="date"
-  />
-
-  <label class="formik__label-time" for="time">Время:</label>
-  <input type="text" placeholder="22:02" id="time" formControlName="time" />
-  <br /><br />
-
-  <label class="formik__label-location" for="location">Место:</label>
-  <input type="text" placeholder="Переговорная 14" id="location" formControlName="location" />
-  <br /><br />
-
-  <div class="formik-row">
-    <div class="formik__block-short">
-      <label class="formik__label-short-description" for="short_description"
-        >Короткое описание:</label
-      >
+<div class="card" *ngFor="let meetup of allMeetups | async; index as i">
+  <div *ngIf="!showForm" class="card-panel">
+    <div class="header">
+      <p class="header__name">{{ meetup.name }}</p>
+      <div class="header__block-column">
+        <p class="header__time">
+          {{ meetup.time | date : "dd.MM.YY, HH:mm" }}
+        </p>
+        <p class="header__location">{{ meetup.location }}</p>
+      </div>
     </div>
-    <input
-      type="text"
-      placeholder="Код - это моя жизнь!!!)!)!)!"
-      id="short_description"
-      formControlName="short_description"
-    />
-  </div>
-  <br />
+    <p class="wrapper__description">{{ meetup.description }}</p>
 
-  <div class="formik-row">
-    <div class="formik__block-long">
-      <label class="formik__label-long-description" for="long_description"
-        >Подробное описание:</label
-      >
+    <div *ngIf="conditions[i]" class="wrapper">
+      <h4 class="styled-h4">Целевая аудитория</h4>
+      <p class="wrapper__target_audience">{{ meetup.target_audience }}</p>
+      <h4 class="styled-h4">Что надо знать?</h4>
+      <p class="wrapper__need_to_know">{{ meetup.need_to_know }}</p>
+      <h4 class="styled-h4">Что будет?</h4>
+      <p class="wrapper__will_happen">{{ meetup.will_happen }}</p>
+      <h4 class="styled-h4">Почему надо обязательно прийти?</h4>
+      <p class="wrapper__reason_to_come">{{ meetup.reason_to_come }}</p>
+      <!--ЕСЛИ ПОНАДОБЯТСЯ ЭТИ ПАРАМЕТРЫ!!!!!!!!!!!!!!!!!!!!!!!! <h4 class="styled-h4">Продолжительность?</h4>
+      <p class="wrapper__duration">{{ meetup.duration }}</p> -->
+      <!-- <h4 class="styled-h4">Создан?</h4>
+      <p class="wrapper__createdBy">{{ meetup.createdBy }}</p> -->
     </div>
-    <input
-      type="text"
-      placeholder="Код - это моя жизнь х2 и больше текста"
-      id="long_description"
-      formControlName="long_description"
-    />
-  </div>
-  <br />
 
-  <div class="formik-row">
-    <div class="formik__block-target">
-      <label class="formik__label-target-audience" for="target_audience"
-        >Целевая аудитория:</label
-      >
+    <div *ngIf="conditions[i]" class="wrapper__buttons-block">
+      <div class="wrapper__buttons-block-start">
+        <img class="wrapper__buttons-block-start-creator" src="../../../../../assets/images/creator-meetup.png" />
+        <p class="fio">{{ meetup.owner.fio }}</p>
+      </div>
+
+      <div class="wrapper__buttons-block-end">
+        <button
+          *ngIf="!isSubscribeToMeetup(meetup)"
+          (click)="subscribeMeetup(meetup)"
+          class="wrapper__buttons-block-styled"
+        >
+          <img
+            class="wrapper__btn-subscribe"
+            src="../../../../../assets/images/Button-subscribe.png"
+          />
+        </button>
+        <button
+          *ngIf="isSubscribeToMeetup(meetup)"
+          (click)="unSubscribeMeetup(meetup)"
+          class="wrapper__buttons-block-styled"
+        >
+          <img
+            class="wrapper__btn-unsubscribe"
+            src="../../../../../assets/images/Button-unsubscribe.png"
+          />
+        </button>
+        <button (click)="toggle(i)" class="wrapper__buttons-block-styled">
+          <img
+            class="wrapper__btn-more"
+            src="../../../../../assets/images/button-hide.png"
+          />
+        </button>
+      </div>
     </div>
-    <input type="text" placeholder="Разработчики, печеньки" id="target_audience" formControlName="target_audience" />
-  </div>
-  <br />
 
-  <div class="formik-row">
-    <div class="formik__block-need">
-      <label class="formik__label-need-to-know" for="need_to_know"
-        >Что надо знать?</label
-      >
+    <div class="wrapper__buttons-block" *ngIf="!conditions[i]" #thenBlock>
+      <div class="wrapper__buttons-block-start">
+        <img class="wrapper__buttons-block-start-creator" src="../../../../../assets/images/creator-meetup.png" />
+        <p class="fio">{{ meetup.owner.fio }}</p>
+      </div>
+
+      <div class="wrapper__buttons-block-end">
+        <button
+          *ngIf="!isSubscribeToMeetup(meetup)"
+          (click)="subscribeMeetup(meetup)"
+          class="wrapper__buttons-block-styled"
+        >
+          <img
+            class="wrapper__btn-subscribe"
+            src="../../../../../assets/images/Button-subscribe.png"
+          />
+        </button>
+        <button
+          *ngIf="isSubscribeToMeetup(meetup)"
+          (click)="unSubscribeMeetup(meetup)"
+          class="wrapper__buttons-block-styled"
+        >
+          <img
+            class="wrapper__btn-unsubscribe"
+            src="../../../../../assets/images/Button-unsubscribe.png"
+          />
+        </button>
+        <button (click)="toggle(i)" class="wrapper__buttons-block-styled">
+          <img
+            class="wrapper__btn-more"
+            src="../../../../../assets/images/button-more.png"
+          />
+        </button>
+      </div>
     </div>
-    <input type="text" placeholder="Надо знать много..." id="need_to_know" formControlName="need_to_know" />
   </div>
-  <br />
-
-  <div class="formik-row">
-    <div class="formik__block-happen">
-      <label class="formik__label-will-happen" for="will_happen"
-        >Что будет?</label
-      >
-    </div>
-    <input type="text" placeholder="Совещание" id="will_happen" formControlName="will_happen" />
-  </div>
-  <br />
-
-  <div class="formik-row">
-    <div class="formik__block-reason">
-      <label class="formik__label-reason-to-come" for="reason_to_come"
-        >Почему надо обязательно прийти?</label
-      >
-    </div>
-    <input type="text" placeholder="Почему?" id="reason_to_come" formControlName="reason_to_come" />
-  </div>
-  <br />
-  <br />
-
-  <div class="formik-btn">
-  <button class="formik-btn__btn" type="submit">
-    <img src="../../../../../assets/images/Button-delete.png " />
-  </button>
-  <button class="formik-btn__btn" type="submit">
-    <img src="../../../../../assets/images/Button-cancel.png " />
-  </button>
-  <button class="formik-btn__btn" type="submit">
-    <img src="../../../../../assets/images/Button-save.png " />
-  </button>
 </div>
 
-</form>
+<app-form-meetup *ngIf="showForm"></app-form-meetup>
+
+<footer *ngIf="!showForm" class="footer">
+  <button (click)="showHideForm()" class="footer__button-btn">
+    <img
+      class="footer__button"
+      src="../../../../../assets/images/create-meetup.png"
+    />
+  </button>
+</footer>
+
+<!-- (click)="deleteMeetup(meetup)" -->

@@ -15,8 +15,6 @@ export class AuthService {
 
   isAdmin: boolean | undefined;
 
-  // role: Observable<Role> = of({names: []});
-
   constructor(private http: HttpClient, private routes: Router) {}
 
   login(email: string, password: string) {

@@ -1,0 +1,28 @@
+.users-table {
+    margin: 150px 250px 300px 350px;
+    max-width: 850px;
+}
+
+table.users-table{
+	width: 100%;
+	border-collapse:collapse;
+	border-spacing:0;
+}
+table.users-table,table.users-table td, table.users-table tr {
+	border: 1px solid #595959;
+}
+table.users-table td,table.users-table tr {
+	padding: 20px;
+	// width: 30px;
+	// height: 35px;
+}
+table.users-table tr {
+	background: #2C2C2C; 
+	color: #fff; 
+	font-weight: normal;
+}
+
+.users-table__btn {
+	display: flex;
+	flex-direction: row;
+}
