@@ -1,19 +1,32 @@
-<table class="users-table">
-  <tbody>
-    <ng-container *ngFor="let user of allUsers | async">
-      <tr>
-        <td>{{user.email}}</td>
-        <td>{{user.password}}</td>
-        <td>{{user.roles}}</td>
-        <td class="users-table__btn">
-          <button>
-            <img src="../../../../../assets/images/Button-close.png" />
-          </button>
-          <button>
-            <img src="../../../../../assets/images/Button-edit.png" />
-          </button>
-        </td>
-      </tr>
+<div class="loading" *ngIf="!(allUsers | async); else users">...Loading</div>
+
+<ng-template #users>
+  <table class="users-table">
+    <tbody>
+      <ng-container *ngFor="let user of allUsers | async">
+        <tr>
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ getRole(user) }}</td>
+          <td class="users-table__btn">
+            <button class="users-table__btn-styled">
+              <img src="../../../../../assets/images/Button-close.png" />
+            </button>
+            <button class="users-table__btn-styled">
+              <img src="../../../../../assets/images/Button-edit.png" />
+            </button>
+          </td>
+        </tr>
       </ng-container>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</ng-template>
+
+<footer class="footer">
+  <button class="footer__button-btn">
+    <img
+      class="footer__button"
+      src="../../../../../assets/images/Button-add-new-user.png"
+    />
+  </button>
+</footer>

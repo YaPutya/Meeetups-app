@@ -1,106 +1,159 @@
-<div class="card" *ngFor="let meetup of allMeetups | async; index as i">
-  <div *ngIf="!showForm" class="card-panel">
-    <div class="header">
-      <p class="header__name">{{ meetup.name }}</p>
-      <div class="header__block-column">
-        <p class="header__time">
-          {{ meetup.time | date : "dd.MM.YY, HH:mm" }}
-        </p>
-        <p class="header__location">{{ meetup.location }}</p>
-      </div>
-    </div>
-    <p class="wrapper__description">{{ meetup.description }}</p>
-
-    <div *ngIf="conditions[i]" class="wrapper">
-      <h4 class="styled-h4">Целевая аудитория</h4>
-      <p class="wrapper__target_audience">{{ meetup.target_audience }}</p>
-      <h4 class="styled-h4">Что надо знать?</h4>
-      <p class="wrapper__need_to_know">{{ meetup.need_to_know }}</p>
-      <h4 class="styled-h4">Что будет?</h4>
-      <p class="wrapper__will_happen">{{ meetup.will_happen }}</p>
-      <h4 class="styled-h4">Почему надо обязательно прийти?</h4>
-      <p class="wrapper__reason_to_come">{{ meetup.reason_to_come }}</p>
-      <!--ЕСЛИ ПОНАДОБЯТСЯ ЭТИ ПАРАМЕТРЫ!!!!!!!!!!!!!!!!!!!!!!!! <h4 class="styled-h4">Продолжительность?</h4>
-      <p class="wrapper__duration">{{ meetup.duration }}</p> -->
-      <!-- <h4 class="styled-h4">Создан?</h4>
-      <p class="wrapper__createdBy">{{ meetup.createdBy }}</p> -->
-    </div>
-
-    <div *ngIf="conditions[i]" class="wrapper__buttons-block">
-      <div class="wrapper__buttons-block-start">
-        <img class="wrapper__buttons-block-start-creator" src="../../../../../assets/images/creator-meetup.png" />
-        <p class="fio">{{ meetup.owner.fio }}</p>
-      </div>
-
-      <div class="wrapper__buttons-block-end">
-        <button
-          *ngIf="!isSubscribeToMeetup(meetup)"
-          (click)="subscribeMeetup(meetup)"
-          class="wrapper__buttons-block-styled"
-        >
-          <img
-            class="wrapper__btn-subscribe"
-            src="../../../../../assets/images/Button-subscribe.png"
-          />
-        </button>
-        <button
-          *ngIf="isSubscribeToMeetup(meetup)"
-          (click)="unSubscribeMeetup(meetup)"
-          class="wrapper__buttons-block-styled"
-        >
-          <img
-            class="wrapper__btn-unsubscribe"
-            src="../../../../../assets/images/Button-unsubscribe.png"
-          />
-        </button>
-        <button (click)="toggle(i)" class="wrapper__buttons-block-styled">
-          <img
-            class="wrapper__btn-more"
-            src="../../../../../assets/images/button-hide.png"
-          />
-        </button>
-      </div>
-    </div>
-
-    <div class="wrapper__buttons-block" *ngIf="!conditions[i]" #thenBlock>
-      <div class="wrapper__buttons-block-start">
-        <img class="wrapper__buttons-block-start-creator" src="../../../../../assets/images/creator-meetup.png" />
-        <p class="fio">{{ meetup.owner.fio }}</p>
-      </div>
-
-      <div class="wrapper__buttons-block-end">
-        <button
-          *ngIf="!isSubscribeToMeetup(meetup)"
-          (click)="subscribeMeetup(meetup)"
-          class="wrapper__buttons-block-styled"
-        >
-          <img
-            class="wrapper__btn-subscribe"
-            src="../../../../../assets/images/Button-subscribe.png"
-          />
-        </button>
-        <button
-          *ngIf="isSubscribeToMeetup(meetup)"
-          (click)="unSubscribeMeetup(meetup)"
-          class="wrapper__buttons-block-styled"
-        >
-          <img
-            class="wrapper__btn-unsubscribe"
-            src="../../../../../assets/images/Button-unsubscribe.png"
-          />
-        </button>
-        <button (click)="toggle(i)" class="wrapper__buttons-block-styled">
-          <img
-            class="wrapper__btn-more"
-            src="../../../../../assets/images/button-more.png"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="loading" *ngIf="!(allMeetups | async); else meetups">
+  ...Loading
 </div>
 
-<app-form-meetup *ngIf="showForm"></app-form-meetup>
+<ng-template #meetups>
+  <ng-container *ngIf="!showForm">
+    <div class="card" *ngFor="let meetup of allMeetups | async; index as i">
+      <div class="card-panel">
+        <div class="header">
+          <p class="header__name">{{ meetup.name }}</p>
+          <div class="header__block-column">
+            <p class="header__time">
+              {{ meetup.time | date : "dd.MM.YY, HH:mm" }}
+            </p>
+            <p class="header__location">{{ meetup.location }}</p>
+          </div>
+        </div>
+        <p class="wrapper__description">{{ meetup.description }}</p>
+
+        <div *ngIf="conditions[i]" class="wrapper">
+          <h4 class="styled-h4">Целевая аудитория</h4>
+          <p class="wrapper__target_audience">{{ meetup.target_audience }}</p>
+          <h4 class="styled-h4">Что надо знать?</h4>
+          <p class="wrapper__need_to_know">{{ meetup.need_to_know }}</p>
+          <h4 class="styled-h4">Что будет?</h4>
+          <p class="wrapper__will_happen">{{ meetup.will_happen }}</p>
+          <h4 class="styled-h4">Почему надо обязательно прийти?</h4>
+          <p class="wrapper__reason_to_come">{{ meetup.reason_to_come }}</p>
+          <!--ЕСЛИ ПОНАДОБЯТСЯ ЭТИ ПАРАМЕТРЫ!!!!!!!!!!!!!!!!!!!!!!!! <h4 class="styled-h4">Продолжительность?</h4>
+      <p class="wrapper__duration">{{ meetup.duration }}</p> -->
+          <!-- <h4 class="styled-h4">Создан?</h4>
+      <p class="wrapper__createdBy">{{ meetup.createdBy }}</p> -->
+        </div>
+
+        <div *ngIf="conditions[i]" class="wrapper__buttons-block">
+          <div class="wrapper__buttons-block-start">
+            <img
+              class="wrapper__buttons-block-start-creator"
+              src="../../../../../assets/images/creator-meetup.png"
+            />
+            <p class="fio">{{ meetup.owner.fio }}</p>
+          </div>
+
+          <div class="wrapper__buttons-block-end">
+            <button
+              *ngIf="
+                !isSubscribeToMeetup(meetup) &&
+                meetup.owner.id !== authService.user?.id
+              "
+              (click)="subscribeMeetup(meetup)"
+              class="wrapper__buttons-block-styled"
+            >
+              <img
+                class="wrapper__btn-subscribe"
+                src="../../../../../assets/images/Button-subscribe.png"
+              />
+            </button>
+
+            <button
+              *ngIf="
+                !isSubscribeToMeetup(meetup) &&
+                meetup.owner.id === authService.user?.id
+              "
+              class="wrapper__buttons-block-styled"
+            >
+              <img
+                class="wrapper__btn-subscribe"
+                (click)="editMeetup(meetup)"
+                src="../../../../../assets/images/Button-edit-meetup.png"
+              />
+            </button>
+            <button
+              *ngIf="isSubscribeToMeetup(meetup)"
+              (click)="unSubscribeMeetup(meetup)"
+              class="wrapper__buttons-block-styled"
+            >
+              <img
+                class="wrapper__btn-unsubscribe"
+                src="../../../../../assets/images/Button-unsubscribe.png"
+              />
+            </button>
+            <button (click)="toggle(i)" class="wrapper__buttons-block-styled">
+              <img
+                class="wrapper__btn-more"
+                src="../../../../../assets/images/button-hide.png"
+              />
+            </button>
+          </div>
+        </div>
+
+        <div class="wrapper__buttons-block" *ngIf="!conditions[i]" #thenBlock>
+          <div class="wrapper__buttons-block-start">
+            <img
+              class="wrapper__buttons-block-start-creator"
+              src="../../../../../assets/images/creator-meetup.png"
+            />
+            <p class="fio">{{ meetup.owner.fio }}</p>
+          </div>
+
+          <div class="wrapper__buttons-block-end">
+            <button
+              *ngIf="
+                !isSubscribeToMeetup(meetup) &&
+                meetup.owner.id !== authService.user?.id
+              "
+              (click)="subscribeMeetup(meetup)"
+              class="wrapper__buttons-block-styled"
+            >
+              <img
+                class="wrapper__btn-subscribe"
+                src="../../../../../assets/images/Button-subscribe.png"
+              />
+            </button>
+            <button
+              *ngIf="
+                !isSubscribeToMeetup(meetup) &&
+                meetup.owner.id === authService.user?.id
+              "
+              (click)="editMeetup(meetup)"
+              class="wrapper__buttons-block-styled"
+            >
+              <img
+                class="wrapper__btn-subscribe"
+                src="../../../../../assets/images/Button-edit-meetup.png"
+              />
+            </button>
+
+            <button
+              *ngIf="isSubscribeToMeetup(meetup)"
+              (click)="unSubscribeMeetup(meetup)"
+              class="wrapper__buttons-block-styled"
+            >
+              <img
+                class="wrapper__btn-unsubscribe"
+                src="../../../../../assets/images/Button-unsubscribe.png"
+              />
+            </button>
+            <button (click)="toggle(i)" class="wrapper__buttons-block-styled">
+              <img
+                class="wrapper__btn-more"
+                src="../../../../../assets/images/button-more.png"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<app-form-meetup
+  *ngIf="showForm"
+  (formWasClosed)="showHideForm()"
+  [editFrom]="form"
+  (save)="saveMeetup($event)"
+></app-form-meetup>
 
 <footer *ngIf="!showForm" class="footer">
   <button (click)="showHideForm()" class="footer__button-btn">

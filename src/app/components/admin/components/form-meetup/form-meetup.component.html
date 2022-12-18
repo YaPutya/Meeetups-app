@@ -1,106 +1,144 @@
-<form class="formik" [formGroup]="myMeetupsReactiveForm" *ngIf="showForm" (submit)="onSubmit()">
-    <h2 class="formik__styled-h2">Создание митапа</h2>
-    <br />
-    <br />
-  
-    <label class="formik__label-name" for="name">Название:</label>
-    <input type="text" id="name" placeholder="Митап 1" formControlName="name" />
-    <br /><br />
-  
-    <label class="formik__label-date" for="date">Дата:</label>
+<form class="formik" [formGroup]="myMeetupsReactiveForm" >
+  <h2 class="formik__styled-h2">Создание митапа</h2>
+  <br />
+  <br />
+
+  <label class="formik__label-name" for="name">Название:</label>
+  <input type="text" id="name" placeholder="Митап 1" formControlName="name" />
+  <br /><br />
+
+  <label class="formik__label-date" for="date">Дата:</label>
+  <input
+    type="text"
+    placeholder="23.03.2015"
+    id="date"
+    formControlName="date"
+  />
+
+  <label class="formik__label-time" for="time">Время:</label>
+  <input type="text" placeholder="22:02" id="time" formControlName="time" />
+  <br /><br />
+
+  <div class="formik-row">
+    <div class="formik__block-duration">
+  <label class="formik__label-duration" for="duration">Продолжительность:</label> </div>
+  <input
+    type="text"
+    placeholder="90 минут"
+    id="duration"
+    formControlName="duration"
+  /></div>
+
+  <label class="formik__label-location" for="location">Место:</label>
+  <input
+    type="text"
+    placeholder="Переговорная 14"
+    id="location"
+    formControlName="location"
+  />
+  <br /><br />
+
+  <div class="formik-row">
+    <div class="formik__block-short">
+      <label class="formik__label-short-description" for="short_description"
+        >Короткое описание:</label
+      >
+    </div>
     <input
       type="text"
-      placeholder="23.03.2015"
-      id="date"
-      formControlName="date"
+      placeholder="Код - это моя жизнь!!!)!)!)!"
+      id="short_description"
+      formControlName="short_description"
     />
-  
-    <label class="formik__label-time" for="time">Время:</label>
-    <input type="text" placeholder="22:02" id="time" formControlName="time" />
-    <br /><br />
-  
-    <label class="formik__label-location" for="location">Место:</label>
-    <input type="text" placeholder="Переговорная 14" id="location" formControlName="location" />
-    <br /><br />
-  
-    <div class="formik-row">
-      <div class="formik__block-short">
-        <label class="formik__label-short-description" for="short_description"
-          >Короткое описание:</label
-        >
-      </div>
-      <input
-        type="text"
-        placeholder="Код - это моя жизнь!!!)!)!)!"
-        id="short_description"
-        formControlName="short_description"
-      />
+  </div>
+  <br />
+
+  <div class="formik-row">
+    <div class="formik__block-long">
+      <label class="formik__label-long-description" for="long_description"
+        >Подробное описание:</label
+      >
     </div>
-    <br />
-  
-    <div class="formik-row">
-      <div class="formik__block-long">
-        <label class="formik__label-long-description" for="long_description"
-          >Подробное описание:</label
-        >
-      </div>
-      <input
-        type="text"
-        placeholder="Код - это моя жизнь х2 и больше текста"
-        id="long_description"
-        formControlName="long_description"
-      />
+    <input
+      type="text"
+      placeholder="Код - это моя жизнь х2 и больше текста"
+      id="long_description"
+      formControlName="long_description"
+    />
+  </div>
+  <br />
+
+  <div class="formik-row">  
+    <div class="formik__block-target">
+      <label class="formik__label-target-audience" for="target_audience"
+        >Целевая аудитория:</label
+      >
     </div>
-    <br />
-  
-    <div class="formik-row">
-      <div class="formik__block-target">
-        <label class="formik__label-target-audience" for="target_audience"
-          >Целевая аудитория:</label
-        >
-      </div>
-      <input type="text" placeholder="Разработчики, печеньки" id="target_audience" formControlName="target_audience" />
+    <input
+      type="text"
+      placeholder="Разработчики, печеньки"
+      id="target_audience"
+      formControlName="target_audience"
+    />
+  </div>
+  <br />
+
+  <div class="formik-row">
+    <div class="formik__block-need">
+      <label class="formik__label-need-to-know" for="need_to_know"
+        >Что надо знать?</label
+      >
     </div>
-    <br />
-  
-    <div class="formik-row">
-      <div class="formik__block-need">
-        <label class="formik__label-need-to-know" for="need_to_know"
-          >Что надо знать?</label
-        >
-      </div>
-      <input type="text" placeholder="Надо знать много..." id="need_to_know" formControlName="need_to_know" />
+    <input
+      type="text"
+      placeholder="Надо знать много..."
+      id="need_to_know"
+      formControlName="need_to_know"
+    />
+  </div>
+  <br />
+
+  <div class="formik-row">
+    <div class="formik__block-happen">
+      <label class="formik__label-will-happen" for="will_happen"
+        >Что будет?</label
+      >
     </div>
-    <br />
-  
-    <div class="formik-row">
-      <div class="formik__block-happen">
-        <label class="formik__label-will-happen" for="will_happen"
-          >Что будет?</label
-        >
-      </div>
-      <input type="text" placeholder="Совещание" id="will_happen" formControlName="will_happen" />
+    <input
+      type="text"
+      placeholder="Совещание"
+      id="will_happen"
+      formControlName="will_happen"
+    />
+  </div>
+  <br />
+
+  <div class="formik-row">
+    <div class="formik__block-reason">
+      <label class="formik__label-reason-to-come" for="reason_to_come"
+        >Почему надо обязательно прийти?</label
+      >
     </div>
-    <br />
-  
-    <div class="formik-row">
-      <div class="formik__block-reason">
-        <label class="formik__label-reason-to-come" for="reason_to_come"
-          >Почему надо обязательно прийти?</label
-        >
-      </div>
-      <input type="text" placeholder="Почему?" id="reason_to_come" formControlName="reason_to_come" />
-    </div>
-    <br />
-    <br />
-  
-    <div class="formik-btn">
-    <button (click)="cancelForm()" class="formik-btn__btn" type="submit">
+    <input
+      type="text"
+      placeholder="Почему?"
+      id="reason_to_come"
+      formControlName="reason_to_come"
+    />
+  </div>
+  <br />
+  <br />
+
+  <div class="formik-btn">
+    <button (click)="onDelete()" class="formik-btn__btn">
+      <img src="../../../../../assets/images/Button-delete.png " />
+    </button>
+
+    <button (click)="cancelForm()" class="formik-btn__btn">
       <img src="../../../../../assets/images/Button-cancel.png " />
     </button>
-    <button class="formik-btn__btn" type="submit">
+    <button (click)="onSubmit()" class="formik-btn__btn">
       <img src="../../../../../assets/images/Button-save.png " />
     </button>
   </div>
-  
-  </form>
+</form>

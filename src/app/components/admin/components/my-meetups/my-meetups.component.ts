@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -24,19 +24,21 @@ export class MyMeetupsComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-    private authService: AuthService,
+    public authService: AuthService,
     private http: HttpClient,
     private fb: FormBuilder
   ) {}
   updateMeetup: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  form: any;
 
   allMeetups: Observable<Meetups[]> = this.updateMeetup.pipe(
     switchMap(() => this.adminService.getAllMeetups()),
     map((meetups: Meetups[]) =>
-      meetups.filter((meetup) =>
-        meetup.users?.some(
-          (user: User) => user.id === this.authService.user?.id
-        )
+      meetups.filter(
+        (meetup) =>
+          meetup.users?.some(
+            (user: User) => user.id === this.authService.user?.id
+          ) || meetup.owner.id === this.authService.user?.id
       )
     ),
     map((meetups) => meetups.sort((a, b) => a.id - b.id))
@@ -62,14 +64,26 @@ export class MyMeetupsComponent implements OnInit {
       .subscribe(() => this.updateMeetup.next(true));
   }
 
-  deleteMeetup(meetup: Meetups) {
-    this.adminService
-      .deleteMeetups(meetup)
-      .subscribe(() => this.updateMeetup.next(true));
-  }
-
   showHideForm() {
     this.showForm = !this.showForm;
+  }
+
+  saveMeetup(data: any) {
+    console.log(data, 444444);
+    this.adminService.createMeetup(data);
+  }
+
+  createMeetup(data: any) {
+    this.adminService.createMeetup(data);
+  }
+
+  deleteMeetup(meetup: Meetups) {
+    this.adminService.deleteMeetups(meetup);
+  }
+
+  editMeetup(meetup: Meetups) {
+    this.showForm = !this.showForm;
+    this.form = meetup;
   }
 
   ngOnInit(): void {}

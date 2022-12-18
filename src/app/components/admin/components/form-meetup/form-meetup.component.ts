@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,13 +17,28 @@ import { AdminService } from '../../services/admin.service';
 })
 export class FormMeetupComponent implements OnInit {
   @Input() meetup: Meetups | undefined;
-
-  showForm: boolean = true;
-
-  myMeetupsReactiveForm!: FormGroup<{
+  @Output() formWasClosed = new EventEmitter();
+  @Output() save = new EventEmitter<{
     name: FormControl<string | null>;
     date: FormControl<string | null>;
     time: FormControl<string | null>;
+    duration: FormControl<string | null>;
+    location: FormControl<string | null>;
+    short_description: FormControl<string | null>;
+    long_description: FormControl<string | null>;
+    target_audience: FormControl<string | null>;
+    need_to_know: FormControl<string | null>;
+    will_happen: FormControl<string | null>;
+    reason_to_come: FormControl<string | null>;
+  }>();
+
+  @Input() editFrom: any;
+
+  myMeetupsReactiveForm!: FormGroup<{
+    name: FormControl<string | null>;
+    date: FormControl<Date | null>;
+    time: FormControl<Date | null>;
+    duration: FormControl<number | null>;
     location: FormControl<string | null>;
     short_description: FormControl<string | null>;
     long_description: FormControl<string | null>;
@@ -42,32 +57,75 @@ export class FormMeetupComponent implements OnInit {
 
   initForm() {
     this.myMeetupsReactiveForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      date: ['', [Validators.required, Validators.pattern(/^[0-9]*[.]*[0-9]*[.]?[0-9]+$/)]],
-      time: ['', [Validators.required, Validators.pattern(/^[0-9]*[:]*[0-9]?[0-9]+$/)]],
-      location: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      short_description: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      long_description: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      target_audience: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      need_to_know: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      will_happen: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
-      reason_to_come: ['', [Validators.required, Validators.pattern(/[А-я]/)]],
+      name: [
+        this.editFrom.name,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      date: [
+        this.editFrom.date,
+        new Date(),
+        [
+          Validators.required,
+          Validators.pattern(/^[0-9]*[.]*[0-9]*[.]?[0-9]+$/),
+        ],
+      ],
+      time: [
+        this.editFrom.time,
+        new Date(),
+        [Validators.required, Validators.pattern(/^[0-9]*[:]*[0-9]?[0-9]+$/)],
+      ],
+      duration: [
+        this.editFrom.duration,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      location: [
+        this.editFrom.location,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      short_description: [
+        this.editFrom.short_description,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      long_description: [
+        this.editFrom.long_description,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      target_audience: [
+        this.editFrom.target_audience,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      need_to_know: [
+        this.editFrom.need_to_know,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      will_happen: [
+        this.editFrom.will_happen,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
+      reason_to_come: [
+        this.editFrom.reason_to_come,
+        [Validators.required, Validators.pattern(/[А-я]/)],
+      ],
     });
   }
 
   onSubmit() {
-    if (this.myMeetupsReactiveForm.invalid) {
-      return;
-    }
-    console.log(this.myMeetupsReactiveForm.value);
+    this.adminService
+      .createMeetup(this.myMeetupsReactiveForm.getRawValue() as any)
+      .subscribe((meetup) => {
+        this.cancelForm();
+      });
   }
 
-  showHideForm() {
-    this.showForm = !this.showForm;
-  }
+  // onDelete() {
+  //   this.adminService
+  //     .deleteMeetups(this.meetup?.id === ).subscribe((meetup) => {
+  //       this.cancelForm();
+  //     });
+  // }    ДОДЕЛАТЬ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
   cancelForm() {
-    this.showForm = false;               //??????????????????????????
+    this.formWasClosed.emit();
   }
 
   ngOnInit() {

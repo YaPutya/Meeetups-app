@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { filter, map, Observable, of } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -6,9 +8,11 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  constructor(public authService: AuthService) {}
+export class AppComponent implements OnInit {
   title = 'meetups';
 
-  
+  constructor(public authService: AuthService) {}
+
+  ngOnInit(): void {
+  }
 }

@@ -15,7 +15,6 @@ export class AdminService {
     return this.http.get<Meetups[]>(`${this.authService.baseUrl}/meetup`);
   }
 
-
   getAllUsers() {
     return this.http.get<User[]>(`${this.authService.baseUrl}/user`);
   }
@@ -37,13 +36,17 @@ export class AdminService {
   }
 
   deleteMeetups(meetup: Meetups) {
-    return this.http.delete<Meetups>(
-      `${this.authService.baseUrl}/meetup`,
-      {
-        params: {
-          id: meetup.id
-        }
-      }
+    return this.http.delete<Meetups>(`${this.authService.baseUrl}/meetup`, {
+      params: {
+        id: meetup.id,
+      },
+    });
+  }
+
+  createMeetup(data: any) {
+    console.log(data, 5555)
+    return this.http.post<any>(`${this.authService.baseUrl}/meetup`, 
+        data
     );
   }
 

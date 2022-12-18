@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject, switchMap, map } from 'rxjs';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { Observable, BehaviorSubject, switchMap, map, of, filter, tap } from 'rxjs';
 import { AuthService, Role } from 'src/app/services/auth.service';
 import { Meetups } from '../../meetups';
 import { AdminService } from '../../services/admin.service';
@@ -18,6 +18,8 @@ export class AllMeetupsComponent implements OnInit {
   showForm: boolean = false;
 
   updateMeetup: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
+  // loading$: Observable<boolean> = of(false);
 
   toggle(i: number) {
     this.conditions[i] = !this.conditions[i];
@@ -40,7 +42,9 @@ export class AllMeetupsComponent implements OnInit {
   }
 
   allMeetups: Observable<Meetups[]> = this.updateMeetup.pipe(
-    switchMap(() => this.adminService.getAllMeetups()),
+    switchMap(() => {
+      return this.adminService.getAllMeetups()
+    }),
     map((meetups) => meetups.sort((a,b) => a.id - b.id) )
   );
 
@@ -52,8 +56,19 @@ export class AllMeetupsComponent implements OnInit {
     private adminService: AdminService,
     private authService: AuthService,
     private http: HttpClient, 
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    // this.loading$ = this.router.events.pipe(
+    //   filter(
+    //     (e) =>
+    //       e instanceof NavigationStart ||
+    //       e instanceof NavigationEnd ||
+    //       e instanceof NavigationCancel ||
+    //       e instanceof NavigationError
+    //   ),
+    //   map((e) => e instanceof NavigationStart)
+    // );
   }
 }
