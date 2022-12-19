@@ -3,16 +3,27 @@
 <ng-template #users>
   <table class="users-table">
     <tbody>
-      <ng-container *ngFor="let user of allUsers | async">
+      <ng-container *ngFor="let user of allUsers | async; index as i">
         <tr>
-          <td>{{ user.email }}</td>
+          <td *ngIf="user.id !== editedUserId">{{ user.email }}</td>
+          <td *ngIf="user.id === editedUserId"><input type="text" [(ngModel)]="user.email"></td>
           <td>{{ user.password }}</td>
-          <td>{{ getRole(user) }}</td>
+          <td>
+          {{getRole(user)}}
+          <td>
+            <select name="roles" id="roles" [ngModel]="getRole(user)" (ngModelChange)="changeRole($event, user)">
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+          </td> 
           <td class="users-table__btn">
-            <button class="users-table__btn-styled">
+            <button class="users-table__btn-styled" *ngIf="user.id === editedUserId" (click)="saveEditUser(user)">
+              <img src="../../../../../assets/images/Button-save.png" />
+            </button>
+            <button (click)="deleteUser(user.id)" class="users-table__btn-styled">
               <img src="../../../../../assets/images/Button-close.png" />
             </button>
-            <button class="users-table__btn-styled">
+            <button class="users-table__btn-styled"  *ngIf="user.id !== editedUserId" (click)="editUser(user.id)">
               <img src="../../../../../assets/images/Button-edit.png" />
             </button>
           </td>

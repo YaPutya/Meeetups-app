@@ -151,8 +151,9 @@
 <app-form-meetup
   *ngIf="showForm"
   (formWasClosed)="showHideForm()"
-  [editFrom]="form"
+  [editForm]="form"
   (save)="saveMeetup($event)"
+  [isEdit]="isEdit"
 ></app-form-meetup>
 
 <footer *ngIf="!showForm" class="footer">
@@ -165,3 +166,4 @@
 </footer>
 
 <!-- (click)="deleteMeetup(meetup)" -->
+<!-- (delete)="deleteMeetup($event)" -->

@@ -22,6 +22,8 @@ export class MyMeetupsComponent implements OnInit {
 
   showForm: boolean = false;
 
+  isEdit: boolean = false;
+
   constructor(
     private adminService: AdminService,
     public authService: AuthService,
@@ -65,6 +67,7 @@ export class MyMeetupsComponent implements OnInit {
   }
 
   showHideForm() {
+    this.isEdit = false;
     this.showForm = !this.showForm;
   }
 
@@ -74,21 +77,15 @@ export class MyMeetupsComponent implements OnInit {
   }
 
   createMeetup(data: any) {
+    this.isEdit = false;
     this.adminService.createMeetup(data);
   }
 
-  deleteMeetup(meetup: Meetups) {
-    this.adminService.deleteMeetups(meetup);
-  }
-
   editMeetup(meetup: Meetups) {
+    this.isEdit = true;
     this.showForm = !this.showForm;
     this.form = meetup;
   }
 
   ngOnInit(): void {}
-
-  //  remove(meetup: Meetups) {
-  //   this.adminService.removeMeetupsById(meetup.id);
-  //  }
 }
