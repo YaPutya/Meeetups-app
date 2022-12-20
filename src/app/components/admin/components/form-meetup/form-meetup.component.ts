@@ -17,8 +17,9 @@ import { AdminService } from '../../services/admin.service';
 })
 export class FormMeetupComponent implements OnInit {
   @Input() isEdit: boolean = false;
-
+  @Input() editForm: any;
   @Input() meetup: Meetups | undefined;
+
   @Output() formWasClosed = new EventEmitter();
   @Output() save = new EventEmitter<{
     name: FormControl<string | null>;
@@ -33,21 +34,6 @@ export class FormMeetupComponent implements OnInit {
     will_happen: FormControl<string | null>;
     reason_to_come: FormControl<string | null>;
   }>();
-  // @Output() delete = new EventEmitter<{
-  //   name: FormControl<string | null>;
-  //   date: FormControl<Date | null>;
-  //   time: FormControl<Date | null>;
-  //   duration: FormControl<number | null>;
-  //   location: FormControl<string | null>;
-  //   short_description: FormControl<string | null>;
-  //   long_description: FormControl<string | null>;
-  //   target_audience: FormControl<string | null>;
-  //   need_to_know: FormControl<string | null>;
-  //   will_happen: FormControl<string | null>;
-  //   reason_to_come: FormControl<string | null>;
-  // }>();
-
-  @Input() editForm: any;
 
   myMeetupsReactiveForm!: FormGroup<{
     name: FormControl<string | null>;
@@ -123,6 +109,10 @@ export class FormMeetupComponent implements OnInit {
     });
   }
 
+  cancelForm() {
+    this.formWasClosed.emit();
+  }
+
   onSubmit() {
     let requestFunc: any;
     if (this.isEdit) {
@@ -147,9 +137,6 @@ export class FormMeetupComponent implements OnInit {
     });
   }
 
-  cancelForm() {
-    this.formWasClosed.emit();
-  }
 
   ngOnInit() {
     this.initForm();

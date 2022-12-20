@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   public activeItem: string | undefined;
 
   ngOnInit(): void {}
-  
+
   public onSelectItem(item: string): void {
     this.activeItem = item;
   }

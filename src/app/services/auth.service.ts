@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../user';
 export interface Role {
-
-    names: string[],
-    userId?: number
+  names: string[];
+  userId?: number;
 }
 @Injectable()
 export class AuthService {
@@ -19,7 +18,10 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<{ token: string }>(`${this.baseUrl}/auth/login`, { email, password })
+      .post<{ token: string }>(`${this.baseUrl}/auth/login`, {
+        email,
+        password,
+      })
       .pipe(
         map((res) => {
           if (res.token) {
@@ -65,9 +67,7 @@ export class AuthService {
   }
 }
 
-
-
-
+// Сохранение не через JWT, а через LOCAL(Пусть останется для красоты)
 
 // import { Injectable } from '@angular/core';
 // import { Router } from '@angular/router';

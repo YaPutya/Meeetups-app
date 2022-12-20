@@ -18,9 +18,6 @@
       >
         Email is required! (format: hi23@mail.ru)
       </p>
-      <!-- maxlength="30"
-        minlength="4" -->
-      <!-- <label class="form-label" for="username">Login</label> -->
     </div>
     <div class="form-control">
       <input
@@ -41,7 +38,14 @@
       >
         Password is required (min. length = 8)
       </p>
-      <button (click)="sumbitLogin()" [disabled]="loginForm.invalid" class="btn" type="submit">Log In</button>
+      <button
+        (click)="sumbitLogin()"
+        [disabled]="loginForm.invalid"
+        class="btn"
+        type="submit"
+      >
+        Log In
+      </button>
     </div>
     <br />
     <a class="link-acc">How to create account?</a>

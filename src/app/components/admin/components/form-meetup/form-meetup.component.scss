@@ -37,6 +37,22 @@ input[type="text"] {
   color: white;
 }
 
+input[type="number"] {
+  background: #2c2c2c;
+  border: 3px solid #4c3f78;
+  border-radius: 5px;
+  height: 50px;
+  padding: 7px;
+  color: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .formik__label-name {
   padding-right: 30px;
 }
@@ -105,7 +121,7 @@ input[type="text"]#long_description {
   width: 50px;
   height: 80px;
   margin-right: 67px;
-}
+}t
 
 input[type="text"]#target_audience {
   width: 64%;
@@ -123,7 +139,7 @@ input[type="text"]#need_to_know {
   height: 105px;
 }
 
-input[type="text"]#duration {
+input[type="number"]#duration {
   width: 35%;
 }
 

@@ -2,17 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllMeetupsComponent } from './components/admin/components/all-meetups/all-meetups.component';
 import { MyMeetupsComponent } from './components/admin/components/my-meetups/my-meetups.component';
-import { UsersComponent } from './components/admin/components/users/users.component';
 import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProjectDescriptionComponent } from './components/project-description/project-description.component';
 import { AuthGuard } from './guards/auth.guard';
 // import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-  {
-    component: ProjectDescriptionComponent,
-    path: 'about',
-  },
+  { path: 'about', component: ProjectDescriptionComponent },
   {
     path: 'allMeetups',
     canActivate: [AuthGuard],
@@ -24,9 +21,9 @@ const routes: Routes = [
     component: MyMeetupsComponent,
   },
   {
-    component: LoginComponent,
     path: 'login',
-    // canActivate: [LoginGuard],
+    component: LoginComponent,
+    // canActivate: [LoginGuard], если понадобится
   },
   { path: '', redirectTo: 'about', pathMatch: 'full' },
   {
@@ -37,7 +34,9 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'about',
+    component: NotFoundComponent,
+    pathMatch: 'full',
+    // redirectTo: '',
   },
 ];
 

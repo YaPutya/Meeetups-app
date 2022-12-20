@@ -6,6 +6,9 @@
   <div *ngIf="!showForm" class="search-container">
     <div class="search">
       <input
+        [(ngModel)]="enteredSearchValue"
+        (input)="onSearchTextChanged($event)"
+        autocomplete="on"
         type="text"
         class="searchTerm"
         placeholder="Название, ключевое слово, дата"
@@ -15,9 +18,15 @@
       </button>
     </div>
   </div>
+
   <ng-container *ngIf="!showForm">
     <div class="card" *ngFor="let meetup of allMeetups | async; index as i">
-      <div class="card-panel">
+      <div
+        class="card-panel"
+        *ngIf="
+          searchText === '' || meetup.name.toLowerCase().includes(searchText)
+        "
+      >
         <div class="header">
           <p class="header__name">{{ meetup.name }}</p>
           <div class="header__block-column">
@@ -130,8 +139,6 @@
   *ngIf="showForm"
   (formWasClosed)="showHideForm()"
 ></app-form-meetup>
-
-<!-- (save)="saveMeetup($event)" -->
 
 <footer *ngIf="!showForm" class="footer">
   <button (click)="showHideForm()" class="footer__button-btn">

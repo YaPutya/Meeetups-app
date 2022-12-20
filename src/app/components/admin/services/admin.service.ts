@@ -35,6 +35,11 @@ export class AdminService {
     });
   }
 
+  createMeetup(data: any) {
+    console.log(data, 5555);
+    return this.http.post<any>(`${this.authService.baseUrl}/meetup`, data);
+  }
+
   deleteMeetups(id: number) {
     return this.http.delete<Meetups>(
       `${this.authService.baseUrl}/meetup/${id}`
@@ -68,9 +73,11 @@ export class AdminService {
   }
 
   editRoles(role: string, user: User) {
-    return this.http.put<User>(`${this.authService.baseUrl}/user/${user.id}`, {
-      oldName: role === 'ADMIN' ? 'USER' : 'ADMIN',
-      newName: role,
+    return this.http.post<User>(`${this.authService.baseUrl}/user/role`, {
+      body: {
+        names: ['ADMIN', 'USER'],
+        userId: 1,
+      },
     });
   }
 
@@ -78,20 +85,14 @@ export class AdminService {
     return this.http.delete<User>(`${this.authService.baseUrl}/user/${id}`);
   }
 
-  createMeetup(data: any) {
-    console.log(data, 5555);
-    return this.http.post<any>(`${this.authService.baseUrl}/meetup`, data);
+  addUsers(user: User) {
+    return this.http.post<User>(
+      `${this.authService.baseUrl}/auth/registration`,
+      {
+        email: user.email,
+        password: user.password,
+        fio: user.fio,
+      }
+    );
   }
-
-  // removeMeetupsById(id: number | undefined) {
-  //   if (id === undefined) {
-  //     throw new Error('id = undefined при вызове функции removeMeetupsById');
-  //   }
-
-  //   const findIdx = this.meetups.findIndex((meetups: { id: number; }) => meetups.id === id);
-
-  //   if (findIdx !== -1) {
-  //     this.meetups.splice(findIdx, 1);
-  //   }
-  // }
 }

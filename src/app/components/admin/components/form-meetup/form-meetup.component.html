@@ -1,4 +1,4 @@
-<form class="formik" [formGroup]="myMeetupsReactiveForm" >
+<form class="formik" [formGroup]="myMeetupsReactiveForm">
   <h2 *ngIf="!isEdit" class="formik__styled-h2">Создание митапа</h2>
   <h2 *ngIf="isEdit" class="formik__styled-h2">Редактирование митапа</h2>
   <br />
@@ -22,13 +22,17 @@
 
   <div class="formik-row">
     <div class="formik__block-duration">
-  <label class="formik__label-duration" for="duration">Продолжительность:</label> </div>
-  <input
-    type="number"
-    placeholder="90"
-    id="duration"
-    formControlName="duration"
-  /></div>
+      <label class="formik__label-duration" for="duration"
+        >Продолжительность:</label
+      >
+    </div>
+    <input
+      type="number"
+      placeholder="90"
+      id="duration"
+      formControlName="duration"
+    />
+  </div>
 
   <label class="formik__label-location" for="location">Место:</label>
   <input
@@ -62,14 +66,14 @@
     </div>
     <input
       type="text"
-      placeholder="Код - это моя жизнь х2 и больше текста"
+      placeholder="Код - это моя жизнь x2 и больше текста"
       id="long_description"
       formControlName="long_description"
     />
   </div>
   <br />
 
-  <div class="formik-row">  
+  <div class="formik-row">
     <div class="formik__block-target">
       <label class="formik__label-target-audience" for="target_audience"
         >Целевая аудитория:</label

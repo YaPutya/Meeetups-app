@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { Observable, BehaviorSubject, switchMap, map, of, filter, tap } from 'rxjs';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, BehaviorSubject, switchMap, map } from 'rxjs';
 import { AuthService, Role } from 'src/app/services/auth.service';
 import { Meetups } from '../../meetups';
 import { AdminService } from '../../services/admin.service';
@@ -12,19 +12,22 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./all-meetups.component.scss'],
 })
 export class AllMeetupsComponent implements OnInit {
-  
   conditions: boolean[] = [];
 
   showForm: boolean = false;
 
   updateMeetup: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  // loading$: Observable<boolean> = of(false);
+  enteredSearchValue: string = '';
+
+  searchText: string = '';
+
+  searchTextChanged: EventEmitter<string> = new EventEmitter<string>();
 
   toggle(i: number) {
     this.conditions[i] = !this.conditions[i];
   }
-  
+
   isSubscribeToMeetup(meetup: Meetups): boolean {
     return meetup.users.some((user) => user.id === this.authService.user?.id);
   }
@@ -43,19 +46,29 @@ export class AllMeetupsComponent implements OnInit {
 
   allMeetups: Observable<Meetups[]> = this.updateMeetup.pipe(
     switchMap(() => {
-      return this.adminService.getAllMeetups()
+      return this.adminService.getAllMeetups();
     }),
-    map((meetups) => meetups.sort((a,b) => a.id - b.id) )
+    map((meetups) => meetups.sort((a, b) => a.id - b.id))
   );
 
   showHideForm() {
     this.showForm = !this.showForm;
   }
 
+  onSearchTextChanged(searchEvent: any) {
+    // console.log('...', searchEvent.target.value);
+    this.searchText = searchEvent.target.value;
+  }
+
+  onSearchTextEntered(searchValue: string) {
+    this.searchText = searchValue;
+    // console.log(this.searchText);
+  }
+
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
-    private http: HttpClient, 
+    private http: HttpClient,
     private router: Router
   ) {}
 

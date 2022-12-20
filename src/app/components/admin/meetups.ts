@@ -12,7 +12,7 @@ export interface Meetups {
   target_audience: string;
   duration: number;
   createdBy: number;
-  fio:string;
+  fio: string;
   owner: User;
   users: User[];
 }

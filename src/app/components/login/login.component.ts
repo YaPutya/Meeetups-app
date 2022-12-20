@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  
+
   constructor(private router: Router, private authService: AuthService) {}
 
   sumbitLogin() {
@@ -28,12 +28,6 @@ export class LoginComponent implements OnInit {
         },
         (err) => alert(err.message)
       );
-
-    // subscribe(() => {
-    //   this.router.navigate(['admin']),
-    // },
-    // err => alert(err.message)
-    // );
   }
 
   ngOnInit(): void {
@@ -41,9 +35,5 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.min(8)]),
     });
-
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate(['admin'])
-    // }
   }
 }

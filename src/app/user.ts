@@ -5,5 +5,5 @@ export interface User {
   fio: string;
   roles?: {
     name: string;
-  }[]
+  }[];
 }

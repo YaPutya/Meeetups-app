@@ -1,3 +1,5 @@
+// Если понадобится логин - можно допилить
+
 // import { Injectable } from '@angular/core';
 // import {
 //   ActivatedRouteSnapshot,

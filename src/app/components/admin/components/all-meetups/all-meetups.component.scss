@@ -1,3 +1,4 @@
+//spinner
 .loading {
   padding-top: 140px;
   padding-left: 700px;
@@ -5,6 +6,7 @@
   font-size: 24px;
 }
 
+//search
 .search-container {
   padding: 140px 80px 10px 80px;
 }
@@ -51,17 +53,19 @@ input::placeholder {
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
-  cursor: pointer;
 }
 
+// meetups
 .card {
-  padding: 25px 40px 10px 40px;
+  margin: 25px 40px 10px 40px;
 }
 
+// Чтобы хедер был всегда отступ от первого
 .card:first-child {
   padding-top: 140px;
 }
 
+// Чтобы футер был всегда отступ от последнего элемента
 .card:nth-last-child(2) {
   padding-bottom: 100px;
 }
@@ -157,9 +161,10 @@ input::placeholder {
   margin-right: 10px;
 }
 
+// Подвал фиксированный
 .footer {
   height: 80px;
-  // margin-top: -80px;
+  margin-top: -80px;
   padding: 18px 40px 15px 40px;
 
 
@@ -168,8 +173,8 @@ input::placeholder {
   box-shadow: 0px 4px 4px rgb(62 5 4 / 25%);
   width: 100%;
 
-  // position: fixed;
-  // bottom: 0px;
+  position: fixed;
+  bottom: 0px;
 }
 
 .footer__button-btn {

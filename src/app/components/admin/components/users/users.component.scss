@@ -1,3 +1,4 @@
+// spinner
 .loading {
   padding-top: 140px;
   padding-left: 700px;
@@ -22,9 +23,8 @@ table.users-table tr {
 }
 table.users-table td,
 table.users-table tr {
-  padding: 20px;
-  // width: 30px;
-  // height: 35px;
+  padding: 20px 20px 20px 40px;
+  height: 90px;
 }
 table.users-table tr {
   background: #2c2c2c;
@@ -68,4 +68,23 @@ table.users-table tr {
   background-color: transparent;
   background: transparent;
   cursor: pointer;
+}
+
+input[type="text"]#email {
+  background: #2c2c2c;
+  border: 3px solid #4c3f78;
+  border-radius: 5px;
+  height: 50px;
+  padding: 7px 7px 7px 7px;
+  color: white;
+}
+
+input[type="text"]#password {
+  background: #2c2c2c;
+  border: 3px solid #4c3f78;
+  border-radius: 5px;
+  height: 50px;
+  padding: 5px;
+  color: white;
+  width: 85%;
 }

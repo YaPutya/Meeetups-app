@@ -12,6 +12,7 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
+
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
@@ -49,6 +50,10 @@ export class UsersComponent {
       this.updateUser.next(true);
     });
   }
+
+  // addUser(user: User) {
+  //   this.adminService.addUsers(user).subscribe();
+  // }
 
   changeRole(role: string, user: User) {
     console.log(role, 333)
