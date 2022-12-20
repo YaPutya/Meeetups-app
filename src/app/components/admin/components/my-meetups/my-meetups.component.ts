@@ -36,12 +36,13 @@ export class MyMeetupsComponent implements OnInit {
   allMeetups: Observable<Meetups[]> = this.updateMeetup.pipe(
     switchMap(() => this.adminService.getAllMeetups()),
     map((meetups: Meetups[]) =>
-      meetups.filter(
-        (meetup) =>
+      meetups.filter((meetup) => {
+        return (
           meetup.users?.some(
             (user: User) => user.id === this.authService.user?.id
           ) || meetup.owner.id === this.authService.user?.id
-      )
+        );
+      })
     ),
     map((meetups) => meetups.sort((a, b) => a.id - b.id))
   );

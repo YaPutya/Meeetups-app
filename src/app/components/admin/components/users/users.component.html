@@ -1,7 +1,28 @@
 <div class="loading" *ngIf="!(allUsers | async); else users">...Loading</div>
 
+<form *ngIf="isAddUser" class="formik" [formGroup]="myUsersReactiveForm" (ngSubmit)="onSubmitAddUser()">
+  <h2 class="formik__styled-h2">Создание пользователя</h2>
+  <br />
+  <br />
+
+  <label class="formik__label-email" for="email">Почта:</label>
+  <input type="text" id="email" placeholder="" formControlName="email" />
+  <br /><br />
+
+  <label class="formik__label-password" for="password">Пароль:</label>
+  <input type="text" placeholder="" id="password" formControlName="password" />
+
+  <label class="formik__label-fio" for="fio">ФИО:</label>
+  <input type="text" placeholder="" id="fio" formControlName="fio" />
+
+  <button type="submit">
+    <img src="assets/images/Button-save.png" />
+  </button>
+  <br /><br />
+</form>
+
 <ng-template #users>
-  <table class="users-table">
+  <table class="users-table" *ngIf="!isAddUser">
     <tbody>
       <ng-container *ngFor="let user of allUsers | async; index as i">
         <tr>
@@ -23,15 +44,18 @@
               [(ngModel)]="user.password"
             />
           </td>
-          <td>
+          <td *ngIf="user.id !== editedUserId">
+            {{ getRole(user) | lowercase }}
+          </td>
+          <td *ngIf="user.id === editedUserId">
             <select
               name="roles"
               id="roles"
-              [ngModel]="getRole(user)"
+              [ngModel]="getRole(user) | lowercase"
               (ngModelChange)="changeRole($event, user)"
             >
-              <option value="admin">Admin</option>
-              <option value="user">User</option>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
             </select>
           </td>
           <td class="users-table__btn">
@@ -67,7 +91,7 @@
 </ng-template>
 
 <footer class="footer">
-  <button class="footer__button-btn">
+  <button (click)="isAddUser = !isAddUser" class="footer__button-btn">
     <img
       class="footer__button"
       src="../../../../../assets/images/Button-add-new-user.png"

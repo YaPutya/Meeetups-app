@@ -1,10 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/user';
+import { RoleUser, User } from 'src/app/user';
 import { AdminService } from '../../services/admin.service';
+
+// interface SelectOption {
+//   value: RoleUser;
+//   text: 'Admin' | 'User';
+// }
+
+export interface RegistrationDto {
+  email: string;
+  fio: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-users',
@@ -12,6 +28,13 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
+  isAddUser: boolean = false;
+
+  myUsersReactiveForm = new FormGroup({
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    fio: new FormControl('', [Validators.required]),
+  });
 
   constructor(
     private adminService: AdminService,
@@ -22,16 +45,34 @@ export class UsersComponent {
 
   editedUserId: number | undefined;
   isEditing: boolean = false;
+  // selectOptions: SelectOption[] = [
+  //   { value: 'ADMIN', text: 'Admin' },
+  //   { value: 'USER', text: 'User' }
+  // ];
 
   updateUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   allUsers: Observable<User[]> = this.updateUser.pipe(
     switchMap(() => this.adminService.getAllUsers())
   );
 
-  getRole(user: User) {
-    return user?.roles?.some((elem) => elem.name === 'ADMIN')
-      ? 'admin'
-      : 'user';
+  onSubmitAddUser() {
+    const registrationUserDto: RegistrationDto = {
+      email: this.myUsersReactiveForm.value.email as string,
+      fio: this.myUsersReactiveForm.value.fio as string,
+      password: this.myUsersReactiveForm.value.password as string,
+    };
+
+    this.addUser(registrationUserDto);
+
+    this.isAddUser = !this.isAddUser;
+  }
+
+  getRole(user: User): RoleUser {
+    const roleUser = user?.roles?.some((elem) => elem.name === 'ADMIN')
+      ? 'ADMIN'
+      : 'USER';
+
+    return roleUser;
   }
 
   editUser(id: number) {
@@ -51,15 +92,31 @@ export class UsersComponent {
     });
   }
 
-  // addUser(user: User) {
-  //   this.adminService.addUsers(user).subscribe();
-  // }
+  addUser(userDto: RegistrationDto) {
+    this.adminService.addUser(userDto).subscribe();
+  }
 
-  changeRole(role: string, user: User) {
-    console.log(role, 333)
+  changeRole(role: RoleUser, user: User) {
+    console.log(role, 333);
+    console.log(user, 'user');
+
     // if (user?.roles && user.roles[0] && user.roles[0].name) {
-      // user.roles[0].name = role.toUpperCase();
-      this.adminService.editRoles(role.toUpperCase(), user).subscribe()
+    // user.roles[0].name = role.toUpperCase();
+    this.adminService.editRoles(role, user).subscribe();
     // }
+  }
+
+  isCurrentRoleByUser(role: RoleUser, user: User): boolean {
+    if (!user.roles) {
+      return false;
+    }
+
+    const findRole = user.roles.find((roleUser) => roleUser.name === role);
+
+    return findRole !== undefined;
+  }
+
+  isSelectedOptionRole(role: RoleUser, user: User): string {
+    return this.isCurrentRoleByUser(role, user) ? 'selected' : '';
   }
 }

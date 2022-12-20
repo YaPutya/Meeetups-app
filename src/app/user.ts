@@ -4,6 +4,8 @@ export interface User {
   password: string;
   fio: string;
   roles?: {
-    name: string;
+    name: RoleUser;
   }[];
 }
+
+export type RoleUser = 'ADMIN' | 'USER';

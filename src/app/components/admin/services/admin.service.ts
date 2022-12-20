@@ -2,21 +2,39 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Meetups } from '../meetups';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/user';
+import { RoleUser, User } from 'src/app/user';
+import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import { RegistrationDto } from '../components/users/users.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
   meetups: any;
+  private _allUsersBehSubj: BehaviorSubject<boolean> = new BehaviorSubject(
+    false
+  );
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAllMeetups() {
-    return this.http.get<Meetups[]>(`${this.authService.baseUrl}/meetup`);
+    return this.http.get<Meetups[]>(`${this.authService.baseUrl}/meetup`)
+    // .pipe(
+    //   map((meetups) => {
+    //     return meetups.filter((meetup) => meetup.owner !== null);
+    //   })
+    // );
   }
 
-  getAllUsers() {
-    return this.http.get<User[]>(`${this.authService.baseUrl}/user`);
+  getAllUsers(): Observable<User[]> {
+    // return this.http.get<User[]>(`${this.authService.baseUrl}/user`);
+    return this._allUsersBehSubj.pipe(
+      switchMap((_) =>
+        this.http.get<User[]>(`${this.authService.baseUrl}/user`)
+      ),
+      map((users) => {
+        return users.sort((userA, userB) => userA.id - userB.id);
+      })
+    );
   }
 
   subscribeMeetups(meetup: Meetups) {
@@ -72,27 +90,37 @@ export class AdminService {
     });
   }
 
-  editRoles(role: string, user: User) {
-    return this.http.post<User>(`${this.authService.baseUrl}/user/role`, {
-      body: {
-        names: ['ADMIN', 'USER'],
-        userId: 1,
-      },
-    });
+  editRoles(role: RoleUser, user: User): Observable<User> {
+    return this.http
+      .post<User>(`${this.authService.baseUrl}/user/role`, {
+        names: [role],
+        userId: user.id,
+      })
+      .pipe(
+        tap((user) => {
+          this._allUsersBehSubj.next(true);
+        })
+      );
   }
 
   deleteUsers(id: number) {
     return this.http.delete<User>(`${this.authService.baseUrl}/user/${id}`);
   }
 
-  addUsers(user: User) {
-    return this.http.post<User>(
-      `${this.authService.baseUrl}/auth/registration`,
-      {
-        email: user.email,
-        password: user.password,
-        fio: user.fio,
-      }
-    );
+  addUser(userDto: RegistrationDto): Observable<{ token: string }> {
+    return this.http
+      .post<{ token: string }>(
+        `${this.authService.baseUrl}/auth/registration`,
+        {
+          email: userDto.email,
+          password: userDto.password,
+          fio: userDto.fio,
+        }
+      )
+      .pipe(
+        tap((user) => {
+          this._allUsersBehSubj.next(true);
+        })
+      );
   }
 }
